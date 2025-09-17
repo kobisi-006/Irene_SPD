@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ben Whittaker Tech - WhatsApp Bot</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🤖 Ben Whittaker Tech Bot</h1>
+
+    <div class="form-box">
+      <input type="text" id="phoneInput" placeholder="Weka namba yako mfano 2557XXXXXXXX">
+      <button onclick="startBot()">Start Bot</button>
+    </div>
+
+    <div id="pairingCodeBox" class="hidden">
+      <h2>🔑 Pairing Code:</h2>
+      <p id="pairingCode"></p>
+    </div>
+
+    <div id="statusBox" class="hidden">
+      <p class="status">⏳ Inangoja connection...</p>
+    </div>
+  </div>
+
+  <script>
+    async function startBot() {
+      const phone = document.getElementById("phoneInput").value.trim();
+      if (!phone) {
+        alert("⚠️ Tafadhali weka namba yako");
+        return;
+      }
+
+      const res = await fetch("/start", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        document.getElementById("pairingCode").innerText = data.code;
+        document.getElementById("pairingCodeBox").classList.remove("hidden");
+        document.getElementById("statusBox").classList.remove("hidden");
+        checkStatus();
+      } else {
+        alert(data.message);
+      }
+    }
+
+    async function checkStatus() {
+      const interval = setInterval(async () => {
+        const res = await fetch("/status");
+        const data = await res.json();
+        if (data.connected) {
+          document.querySelector(".status").innerText = "✅ Bot imeunganishwa na Session imetumwa WhatsApp!";
+          clearInterval(interval);
+        }
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
