@@ -1,0 +1,28 @@
+# ===========================
+# 🌐 SERVER CONFIGURATION
+# ===========================
+PORT=3000
+BASE_URL=http://localhost:3000
+
+# ===========================
+# 📱 WHATSAPP BOT CONFIG
+# ===========================
+PHONE_NUMBER=255XXXXXXXXX       # 👈 Andika namba yako kamili ya WhatsApp (international format)
+PAIRING_CODE_ENABLED=true       # "true" → wezesha kuzalisha pairing code, "false" → disable
+SESSION_FILE=session.json       # file la kuhifadhi session
+
+# ===========================
+# 👑 BOT OWNER SETTINGS
+# ===========================
+OWNER_NAME=Ben_Whittaker_Tech
+OWNER_NUMBER=255XXXXXXXXX       # 👈 Namba ya owner kwa commands
+PREFIX=!
+
+# ===========================
+# 🔧 ADVANCED BOT SETTINGS
+# ===========================
+AUTO_TYPING=off
+AUTO_REACT=off
+ANTI_CALL=on
+AUTO_READ=on
+PUBLIC_MODE=on                  # "on" → mtu yeyote anaweza kutumia, "off" → ni owner pekee
